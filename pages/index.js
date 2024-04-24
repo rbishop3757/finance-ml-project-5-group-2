@@ -104,17 +104,11 @@ export default function Home() {
 
     console.log("Data", data_to_be_sent);
 
-    const API_ENDPOINT = "https://riderb3858.pythonanywhere.com/machine";
+    const API_ENDPOINT = "riderb3858.pythonanywhere.com";
 
-    axios
-      .get(API_ENDPOINT, { data_to_be_sent })
-      .then((response) => {
-        print("got something", response);
-        setData(response.data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+    axios.get(API_ENDPOINT).then((response) => {
+      console.log("got back", response);
+    });
   };
 
   return (
