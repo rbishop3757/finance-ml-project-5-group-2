@@ -104,45 +104,17 @@ export default function Home() {
 
     console.log("Data", data_to_be_sent);
 
-    const API_ENDPOINT = "https://riderb3757.pythonanywhere.com/model";
+    const API_ENDPOINT = "https://riderb3858.pythonanywhere.com/machine";
 
-    const https = require("https"); // or import https from 'https'
-    const agent = new https.Agent({
-      rejectUnauthorized: false,
-    });
-
-    fetch(API_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(data_to_be_sent),
-      mode: "no-cors",
-      agent,
-    })
+    axios
+      .get(API_ENDPOINT, { data_to_be_sent })
       .then((response) => {
-        console.log("whole response./..", response);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        console.log("success", response.json());
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Data received:", data);
+        print("got something", response);
+        setData(response.data);
       })
       .catch((error) => {
-        console.error("There was a problem with the request:", error);
+        setError(error);
       });
-
-    // axios
-    //   .post(API_ENDPOINT, data_to_be_sent, {
-    //     headers: { "Access-Control-Allow-Origin": "*" },
-    //   })
-    //   .then((response) => {
-    //     console.log("complete", response);
-    //   });
   };
 
   return (
